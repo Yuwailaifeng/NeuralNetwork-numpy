@@ -1,11 +1,11 @@
 from model import *
 import matplotlib.pyplot as plt
 
-model = Model(2, 8, 2, activation='sigmoid')
+model = Model(2, 8, 1, activation='sigmoid')
 
 # Test XOR problem!
-x = np.array([1, 0])
-y = np.array([0, 1])
+x = np.array([0, 0], [0, 1], [1, 0], [1, 1])
+y = np.array([0, 1, 1, 0])
 
 epoch = 20
 train_loss = []
@@ -18,6 +18,7 @@ for i in range(epoch):
 
     train_loss.append(loss)
 
+# Testing..
 print(model.forward(x))
 
 plt.plot(train_loss)
