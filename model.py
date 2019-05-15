@@ -77,29 +77,27 @@ class Model(object):
         self.layer2 = Linear(hidden_size, output_size)
         
         if activation == 'sigmoid':
-            self.activation1 = Sigmoid()
-            self.activation2 = Sigmoid()
+            self.activation = Sigmoid()
         else:
-            self.activation1 = LeakyReLU()
-            self.activation2 = LeakyReLU()
+            self.activation = LeakyReLU()
 
     def forward(self, x):
         output = self.layer1.forward(x)
-        output = self.activation1.forward(output)
+        output = self.activation.forward(output)
         output = self.layer2.forward(output)
-        output = self.activation2.forward(output)
+        output = self.activation.forward(output)
         
         return output
 
     def backward(self, d_out):
-        d_out = self.activation2.backward(d_out)
+        d_out = self.activation.backward(d_out)
         d_out = self.layer2.backward(d_out)
-        d_out = self.activation1.backward(d_out)
+        d_out = self.activation.backward(d_out)
         d_out = self.layer1.backward(d_out)
 
         return d_out
 
-    def update(self, learning_rate=0.01):
+    def update(self, learning_rate=0.1):
         self.layer1.weight = self.layer1.weight - learning_rate * self.layer1.dW
         self.layer1.bias = self.layer1.bias  - learning_rate * self.layer1.db
 
