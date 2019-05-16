@@ -6,6 +6,12 @@ def softmax(x):
     output = numerator / denominator
     return output
 
+def cross_entropy(prediction, target, epsilon=1e-12):
+    prediction = np.clip(prediction, epsilon, 1.-epsilon)
+    N = prediction.shape[0]
+    ce = -np.sum(target*np.log(prediction+1e-9))/N
+    return ce
+
 class Sigmoid(object):
     def __init__(self):
         self.out = None
